@@ -1,0 +1,179 @@
+﻿.canvas {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  min-height: 600px;
+  background-color: #d1cee0;
+}
+.tree {
+  margin-top: 50px;
+}
+
+/* Рисуем ствол и ветки */
+.trunk,
+.branch {
+  border-radius: 25px;
+  background: linear-gradient(to right, #7f3333, #4d2020);
+}
+.trunk {
+  position: relative;
+  width: 10px;
+  height: 40px;
+  margin: 0 auto;
+}
+
+/* ствол понемногу утолщается в диаметре */
+@keyframes trunk-grow {
+  0% {
+    width: 5px;
+  }
+  100% {
+    width: 10px;
+  }
+}
+.trunk {
+  animation-name: trunk-grow;
+  animation: trunk-grow 50s steps(5) both;
+}
+
+.branch {
+  position: absolute;
+  width: 5px;
+/* ветки должны быть повернуты относительно своей нижней точки: */
+  transform-origin: bottom center;
+}
+
+/* Делаем анимацию растущих веток */
+/* часть веток должна быть слева, а другая — справа */
+/* odd - все нечетные номера элементов */
+@keyframes branch-odd-grow {
+  0% {
+    transform: rotate(-60deg) scaleY(0);
+  }
+  100% {
+    transform: rotate(-70deg) scaleY(1);
+  }
+}
+.branch:nth-child(odd) {
+  animation-name: branch-odd-grow;
+  animation-duration: 60s;
+  animation-fill-mode: both;
+}
+
+/* even - все четные номера элементов */
+@keyframes branch-even-grow {
+  0% {
+    transform: rotate(60deg) scaleY(0);
+  }
+  100% {
+    transform: rotate(70deg) scaleY(1);
+  }
+}
+.branch:nth-child(even) {
+  left: 2px;
+  animation-name: branch-even-grow;
+  animation-duration: 60s;
+  animation-fill-mode: both;
+}
+
+/* Рисуем листья*/
+.leaf {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 75% 0 75% 0;
+  background: linear-gradient(to right, #53ad71, #77ed9e, #d8d800, #d8d800, #cc8800, #d84800);
+  background-size: 72px 1px;
+}
+
+/* Анимация нечётных листьев */
+@keyframes leaf-odd-grow {
+  0% {
+    transform: scale(0);
+  }
+  10% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1);
+    background-position: 0px;
+  }
+  100% {
+    transform: scale(1);
+    background-position: -54px;
+  }
+}
+.leaf:nth-child(odd) {
+  left: 100%;
+  transform-origin: 0% 100%;
+/* по умолчанию листки росли бы в центральной точке и увеличивались равномерно во все стороны */
+  animation-name: leaf-odd-grow;
+  animation-duration: 180s; /* длительность анимации */
+  animation-fill-mode: both; /* состояние элемента до и после анимации */
+}
+
+/* Анимация чётных листьев */
+@keyframes leaf-even-grow {
+  0% {
+    transform: rotate(-90deg) scale(0);
+  }
+  10% {
+    transform: rotate(-90deg) scale(1);
+  }
+  40% {
+    transform: rotate(-90deg) scale(1);
+    background-position: 0px;
+  }
+  100% {
+    transform: rotate(-90deg) scale(1);
+    background-position: -54px;
+  }
+}
+.leaf:nth-child(even) {
+  left: -180%; /* было -150% для размера листьев в 15px */
+  transform-origin: 50% 100%;
+  animation-name: leaf-even-grow;
+  animation-duration: 180s;
+  animation-fill-mode: both;
+}
+
+/* расположим листья на ветке и добавим задержку начала анимации */
+.leaf:nth-child(1) {
+  top: 5px;
+  animation-delay: 4s;
+}
+.leaf:nth-child(2) {
+  top: 25px;
+  animation-delay: 5s;
+}
+.leaf:nth-child(3) {
+  top: 60px;
+  animation-delay: 6.5s;
+}
+.leaf:nth-child(4) {
+  top: 80px;
+  animation-delay: 8.5s;
+}
+.leaf:nth-child(5) {
+  top: 115px;
+  animation-delay: 11s;
+}
+.leaf:nth-child(6) {
+  top: 135px;
+  animation-delay: 14s;
+}
+.leaf:nth-child(7) {
+  top: 170px;
+  animation-delay: 17.5s;
+}
+.leaf:nth-child(8) {
+  top: 190px;
+  animation-delay: 21s;
+}
+
+#canvas2 {
+	background-color: #bebbcc;
+	padding-bottom: 4px;
+	font-size: 24px;
+}

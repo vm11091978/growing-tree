@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="">
+    <link type="image/x-icon" rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    
+<div class="canvas">
+  <div class="tree"> <!-- всё дерево -->
+    <div class="trunk"> <!-- ствол -->
+    </div>
+  </div>
+</div>
+<div id="canvas2"></div>
+	
+<script>
+let trunk = document.querySelector('.trunk');
+	
+function growth(i) {
+	let div = document.createElement('div');
+	div.className = 'branch'; /* <div class="branch branch1"></div> */
+	div.style.bottom = 40 + 40*i + 'px'; /* зададим шаг между ветками в 40px */
+	div.style.height = 270 - 30*Math.ceil(i/2) + 'px'; /* первые две ветки имеют длинну 240px */
+	div.style.animationDuration = 0.25*(270 - 30*Math.ceil(i/2)) + 's'; /* длительность анимации */
+	trunk.append(div); /* вставим div внутрь ствола, т.е. класса trunk */
+
+	function leaf() {
+		let leaf = document.createElement('div');
+		leaf.className = 'leaf';
+		div.append(leaf);
+	}
+	
+	for (let j = 1; j <= (9 - Math.ceil(i/2)); j++) {
+		leaf();
+	}
+}
+
+let count = 1;
+function clock()
+{
+	if (count <= 400) {
+		var season = 'весна';
+	} else if (count == 800) {
+		var season = 'осень';
+	} else {
+		var season = 'лето';
+	}
+	document.getElementById("canvas2").innerHTML = season;
+	
+	if (count <= 630) {
+		if (count%40 == 0) {
+			growth(count/40);
+		}
+		trunk.style.height = 40 + count + 'px'; /* рост 10 пикселей в секунду */
+	}
+	if (count < 800) {
+		count++;
+	} else {clearInterval(timer);}
+}
+let timer = setInterval("clock()", 100);
+
+</script>
+</body>
+</html>
